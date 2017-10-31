@@ -22,8 +22,8 @@ def main(argv):
 		opts, args = getopt.getopt(argv, "", ("username=", "near=", "within=", "since=", "until=", "querysearch=", "toptweets", "maxtweets=", "output="))
 		
 		keywords = ["bezrobocie",
-							"#bezrobocie"
-							]
+					"#bezrobocie"
+					]
 
 		for i in range(len(keywords)):
 			tweetCriteria = got.manager.TweetCriteria()
