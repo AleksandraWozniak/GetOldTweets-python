@@ -78,7 +78,9 @@ class TweetManager:
 	
 	@staticmethod
 	def getJsonReponse(tweetCriteria, refreshCursor, cookieJar, proxy):
-		url = "https://twitter.com/i/search/timeline?f=tweets&q=%s&src=typd&max_position=%s"
+		#Tweets are searched on Polish-speaking Twitter website only
+		url = "https://twitter.com/i/search/timeline?f=tweets&q=%s&l=pl&src=typd&max_position=%s"
+		#url = "https://twitter.com/i/search/timeline?f=tweets&q=%s&src=typd&max_position=%s"
 		
 		urlGetData = ''
 		
@@ -100,7 +102,8 @@ class TweetManager:
 
 		if hasattr(tweetCriteria, 'topTweets'):
 			if tweetCriteria.topTweets:
-				url = "https://twitter.com/i/search/timeline?q=%s&src=typd&max_position=%s"
+				url = "https://twitter.com/i/search/timeline?q=%s&l=pl&src=typd&max_position=%s"
+				#url = "https://twitter.com/i/search/timeline?q=%s&src=typd&max_position=%s"
 		
 		
 		
