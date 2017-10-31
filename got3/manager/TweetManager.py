@@ -32,7 +32,8 @@ class TweetManager:
 				tweetPQ = PyQuery(tweetHTML)
 				tweet = models.Tweet()
 				
-				usernameTweet = tweetPQ("span.username.js-action-profile-name b").text();
+				usernameTweet = tweetPQ("span:first.username.u-dir b").text();
+				#usernameTweet = tweetPQ("span.username.js-action-profile-name b").text();
 				txt = re.sub(r"\s+", " ", tweetPQ("p.js-tweet-text").text().replace('# ', '#').replace('@ ', '@'));
 				retweets = int(tweetPQ("span.ProfileTweet-action--retweet span.ProfileTweet-actionCount").attr("data-tweet-stat-count").replace(",", ""));
 				favorites = int(tweetPQ("span.ProfileTweet-action--favorite span.ProfileTweet-actionCount").attr("data-tweet-stat-count").replace(",", ""));
@@ -85,7 +86,9 @@ class TweetManager:
 	
 	@staticmethod
 	def getJsonReponse(tweetCriteria, refreshCursor, cookieJar, proxy):
-		url = "https://twitter.com/i/search/timeline?f=tweets&q=%s&src=typd&%smax_position=%s"
+		#Looking on Polish-speaking Twitter website only
+		url = "https://twitter.com/i/search/timeline?f=realtime&q=%s&l=pl&src=typd&%smax_position=%s"
+		#url = "https://twitter.com/i/search/timeline?f=tweets&q=%s&src=typd&%smax_position=%s"
 		
 		urlGetData = ''
 		if hasattr(tweetCriteria, 'username'):
@@ -118,9 +121,9 @@ class TweetManager:
 		]
 
 		if proxy:
-			opener = urllib2.build_opener(urllib2.ProxyHandler({'http': proxy, 'https': proxy}), urllib2.HTTPCookieProcessor(cookieJar))
+			opener = urllib.request.build_opener(urllib.request.ProxyHandler({'http': proxy, 'https': proxy}), urllib.request.HTTPCookieProcessor(cookieJar))
 		else:
-			opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookieJar))
+			opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookieJar))
 		opener.addheaders = headers
 
 		try:
